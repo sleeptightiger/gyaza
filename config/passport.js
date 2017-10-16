@@ -23,7 +23,7 @@ module.exports = function(passport) {
         if (err) {
           return done(err);
         }
-        if (!user) {
+        else if (user) {
           return done(null, false);
         }
         else {
