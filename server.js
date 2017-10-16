@@ -1,12 +1,14 @@
 // dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
-//const model = require('./models')
+//const db = require('./models')
 
 // app config
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
+//set up views
+app.set('view engine', 'ejs');
 
 // app routes
 // you can add route handlers directly in this file like this:
