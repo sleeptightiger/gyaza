@@ -1,14 +1,17 @@
 // dependencies
+
 var express = require('express'),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
   session = require('express-session');
 //const model = require('./models')
 
+
 // app config
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('views', './views');
 app.set('view engine', 'ejs');
