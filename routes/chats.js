@@ -1,4 +1,4 @@
-const db = require('../models/chat');
+const db = require('../models');
 
 function getChat(req, res) {
   db.Chat.find({}, function(err, data) {

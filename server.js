@@ -1,31 +1,33 @@
 // dependencies
 
 var express = require('express'),
-  bodyParser = require('body-parser'),
-  mongoose = require('mongoose'),
-  session = require('express-session');
-//const model = require('./models')
+    bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    mongoose = require('mongoose'),
+    morgan = require('morgan'),
+    session = require('express-session'),
+    passport = require('passport');
 
 
 // app config
 const app = express();
 const port = process.env.PORT || 3000;
-app.use(bodyParser.json());
-
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(cookieParser());
 app.set('views', './views');
 app.set('view engine', 'ejs');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+require('dotenv').config();
+//app.use(express.static('./public'));
+app.use(session({secret: 'bearden'}));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(morgan('dev'));
 
-// app routes
-// you can add route handlers directly in this file like this:
-// app.get('/', function(req, res) {
-//   res.json({
-//     message: 'Welcome to Gyaza!!',
-//     type: 'greeting',
-//     time: new Date()
-//   });
-// });
+mongoose.connection.openUri(process.env.DB_CONN);
+
+
 
 const userRoutes = require('./routes/users'),
       chatRoutes = require('./routes/chats'),
