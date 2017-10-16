@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
    <!-- external CSS link -->
-  <link rel="stylesheet" href="public/styles/reset.css">
-  <link rel="stylesheet" href="public/styles/normalize.css">
-  <link rel="stylesheet" href="public/styles/app.css">
+  <link rel="stylesheet" href="styles/reset.css">
+  <link rel="stylesheet" href="styles/normalize.css">
+  <link rel="stylesheet" href="styles/app.css">
 
 
   <!-- font -->
@@ -26,18 +26,21 @@
         <h1>Sign Up</h1>
         <hr>
 
-        <form id="signup-form">
+        <form id="signup-form" method="post">
           <div class="form-group">
-            <input type="text" name="email" class="form-control" placeholder="Email" autofocus>
+            <input type="text" name="username" class="form-control" placeholder="Desired Username" autofocus>
           </div>
+<!--           <div class="form-group">
+            <input type="text" name="email" class="form-control" placeholder="Email">
+          </div> -->
           <div class="form-group">
             <input type="password" name="password" class="form-control" placeholder="Password">
           </div>
           <div class="form-group">
             <input type="submit" value="Sign Up" class="login btn btn-primary">
           </div>
-          <a href="/">Login</a>
         </form>
+      <p>Already have an account?<a href="/">Login</a></p>
       </div>
     </div>
   </div>
