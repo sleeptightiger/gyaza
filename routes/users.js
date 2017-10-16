@@ -9,7 +9,7 @@ function getUser(req, res) {
       res.json(data);
     }
   });
-}
+};
 
 function createUser(req, res) {
   const newUser = db.User({
@@ -17,7 +17,6 @@ function createUser(req, res) {
     lastName: req.body.lastName,
     userName: req.body.userName,
     email: req.body.email,
-    //Is the following correct?
     projects: req.body.projects
   });
 
