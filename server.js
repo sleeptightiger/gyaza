@@ -18,6 +18,30 @@ app.get('/', function(req, res) {
   });
 });
 
+//routes for user
+const userRoutes = require('./routes/users'),
+      projectRoutes = require('./routes/projects');
+
+app.get('/newUser', userRoutes.getUser);
+app.post('/newUser', userRoutes.createUser);
+app.get('/newUser/:id', userRoutes.findUserById);
+app.put('/newUser/:id', userRoutes.changeUser);
+app.delete('/newUser/:id', userRoutes.deleteUser);
+
+//Routes for projects
+app.get('/newProject', projectRoutes.getProject);
+app.post('/newProject', projectRoutes.createProject);
+app.get('/newProject/:id', projectRoutes.findProjectById);
+app.put('/newProject/:id', projectRoutes.changeProject);
+app.delete('/newProject/:id', projectRoutes.deleteProject);
+
+//Routes for goals
+app.get('/newGoal', projectRoutes.getGoal);
+app.post('/newGoal', projectRoutes.createGoal);
+app.get('/newGoal/:id', projectRoutes.findGoalById);
+app.put('/newGoal/:id', projectRoutes.changeGoal);
+app.delete('/newGoal/:id', projectRoutes.deleteGoal);
+
 
 // start app
 app.listen(port, function(err) {
