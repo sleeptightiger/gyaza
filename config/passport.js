@@ -18,28 +18,24 @@ module.exports = function(passport) {
     passToCallback: true
   },
   function(username, password, done) {
-    console.log(username);
-    console.log(password);
-
     process.nextTick(function() {
       User.findOne({ 'local.username' : username}, function(err, user) {
         if (err) {
           return done(err);
         }
-
-        if (user) {
-          //try to send a message to user saying already in db
-          return done(null);
+        if (!user) {
+          return done(null, false);
         }
         else {
           var newUser = new User();
-          newUser.local.username = username;
+          newUser.local.userName = username;
           newUser.local.password = newUser.generateHash(password);
 
           newUser.save(function(err) {
             if (err) {
               console.log('Error saving user to DB.', err);
             }
+            console.log(newUser);
             return done(null, newUser);
           });
         }
