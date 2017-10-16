@@ -15,7 +15,15 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('views', './views');
 app.set('view engine', 'ejs');
+require('dotenv').config();
 
+mongoose.connection.openUri(process.env.DB_CONN, function(err, conn) {
+  if (err) {
+    console.log('Error connecting to Mongo DB', err);
+  } else {
+    console.log('Successfully connected mongoose to Mongo DB');
+  }
+});
 
 // app routes
 // you can add route handlers directly in this file like this:
@@ -26,6 +34,7 @@ app.set('view engine', 'ejs');
 //     time: new Date()
 //   });
 // });
+
 
 const userRoutes = require('./routes/users'),
       chatRoutes = require('./routes/chats'),
