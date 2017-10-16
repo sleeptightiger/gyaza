@@ -15,10 +15,11 @@ const port = process.env.PORT || 3000;
 app.use(cookieParser());
 app.set('views', './views');
 app.set('view engine', 'ejs');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 require('dotenv').config();
-//app.use(express.static('./public'));
+app.use(express.static('./public'));
 app.use(session({secret: 'bearden'}));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -30,12 +31,17 @@ const userRoutes = require('./routes/users'),
       chatRoutes = require('./routes/chats'),
       projectRoutes = require('./routes/projects');
 
-//signup route with placeholder
+//homepage login rendered
+app.get('/', function (req, res) {
+  res.render('../views/login');
+});
+
+//sign up page rendered
 app.get('/signup', function (req, res) {
   res.render('../views/signup');
 });
 
-//log route with placeholder
+//homepage login
 app.get('/', function (req, res) {
   res.render('../views/login');
 });
@@ -68,7 +74,7 @@ app.get('/newChat/:id', chatRoutes.findChatById);
 app.put('/newChat/:id', chatRoutes.changeChat);
 app.delete('/newChat/:id', chatRoutes.deleteChat);
 
-// start app
+//start app
 app.listen(port, function(err) {
   if (err) {
     console.log(`Error starting server on port ${port}`, err);

@@ -22,7 +22,6 @@ const Goal = mongoose.model('Goal', GoalsSchema);
 const Project = mongoose.model('Project', ProjectSchema);
 
 module.exports = {
-  GoalsSchema: GoalsSchema,
-  ProjectSchema: ProjectSchema
+  Goal: Goal,
+  Project: Project
 };
-
