@@ -5,12 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
    <!-- external CSS link -->
-  <link rel="stylesheet" href="public/styles/reset.css">
-  <link rel="stylesheet" href="public/styles/normalize.css">
-  <link rel="stylesheet" href="public/styles/app.css">
+  <link rel="stylesheet" href="styles/reset.css">
+  <link rel="stylesheet" href="styles/normalize.css">
+  <link rel="stylesheet" href="styles/app.css">
 
-  <!-- font -->
-  <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Inconsolata|Lato|News+Cycle" rel="stylesheet">
+
   <!-- Add jQuery library -->
   <script type="application/javascript" src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
   <script type="text/javascript" src="js/script.js"></script>
@@ -24,7 +23,7 @@
         <h1>Log In</h1>
         <hr>
 
-        <form id="login-form">
+        <form action='/' id="login-form">
           <div class="form-group">
             <input type="text" name="email" class="form-control" placeholder="Email" autofocus>
           </div>
@@ -34,14 +33,14 @@
           <div class="form-group">
             <input type="submit" value="Log In" class="login btn btn-primary">
           </div>
-          <a href="/signup">Sign Up</a>
         </form>
+
+        <hr>
+
+        <p>Need an account? <a id="btn sign-up" href="/signup">Sign Up</a></p>
       </div>
     </div>
   </div>
-
-  <!--APPLICATION SCRIPTS-->
   <script src="scripts/app.js"></script>
-
 </body>
 </html>
