@@ -19,14 +19,16 @@ module.exports = function(passport) {
   },
   function(username, password, done) {
     process.nextTick(function() {
-      User.findOne({ 'local.username' : username}, function(err, user) {
+      User.findOne({ 'local.userName' : username}, function(err, user) {
         if (err) {
           return done(err);
         }
-        if (!user) {
+        if (user) {
+          console.log("existing user: ", user);
           return done(null, false);
         }
-        else {
+        if (!user) {
+          console.log("god help you");
           var newUser = new User();
           newUser.local.userName = username;
           newUser.local.password = newUser.generateHash(password);
