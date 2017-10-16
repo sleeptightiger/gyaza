@@ -15,7 +15,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('views', './views');
 app.set('view engine', 'ejs');
+require('dotenv').config();
 
+app.use(express.static('public'))
+
+mongoose.connection.openUri(process.env.DB_CONN, function(err, conn) {
+  if (err) {
+    console.log('Error connecting to Mongo DB', err);
+  } else {
+    console.log('Successfully connected mongoose to Mongo DB');
+  }
+});
 
 // app routes
 // you can add route handlers directly in this file like this:
@@ -27,6 +37,7 @@ app.set('view engine', 'ejs');
 //   });
 // });
 
+
 const userRoutes = require('./routes/users'),
       chatRoutes = require('./routes/chats'),
       projectRoutes = require('./routes/projects');
@@ -35,6 +46,11 @@ const userRoutes = require('./routes/users'),
 app.get('/signup', function (req, res) {
   res.render('../views/signup');
 });
+
+app.get('/portal', function (req, res) {
+  res.render('../views/project-portal');
+});
+
 
 //log route with placeholder
 app.get('/', function (req, res) {

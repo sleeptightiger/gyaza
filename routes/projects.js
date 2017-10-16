@@ -1,4 +1,4 @@
-const db = require('../models/project');
+const db = require('../models');
 
 function getGoal(req, res) {
   db.Goal.find({}, function(err, data) {
