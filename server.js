@@ -18,10 +18,12 @@ app.get('/', function(req, res) {
   });
 });
 
-//routes for user
 const userRoutes = require('./routes/users'),
+      chatRoutes = require('./routes/chats'),
       projectRoutes = require('./routes/projects');
 
+
+//routes for user
 app.get('/newUser', userRoutes.getUser);
 app.post('/newUser', userRoutes.createUser);
 app.get('/newUser/:id', userRoutes.findUserById);
@@ -42,6 +44,12 @@ app.get('/newGoal/:id', projectRoutes.findGoalById);
 app.put('/newGoal/:id', projectRoutes.changeGoal);
 app.delete('/newGoal/:id', projectRoutes.deleteGoal);
 
+//Routes for chats
+app.get('/newChat', chatRoutes.getChat);
+app.post('/newChat', chatRoutes.createChat);
+app.get('/newChat/:id', chatRoutes.findChatById);
+app.put('/newChat/:id', chatRoutes.changeChat);
+app.delete('/newChat/:id', chatRoutes.deleteChat);
 
 // start app
 app.listen(port, function(err) {

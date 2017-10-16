@@ -1,10 +1,9 @@
-const db = require('../models');
-
+const db = require('../models/project');
 
 function getGoal(req, res) {
   db.Goal.find({}, function(err, data) {
     if (err) {
-      console.log('Error retrieving user from DB.', err);
+      console.log('Error retrieving goal from DB.', err);
       res.status(500).send('Internal server error');
     } else {
       res.json(data);
@@ -21,7 +20,7 @@ function createGoal(req, res) {
 
   newGoal.save(function(err, data) {
     if (err) {
-      console.log('Error saving user to DB.', err);
+      console.log('Error saving goal to DB.', err);
       res.status(500).send('Internal server error');
     } else {
       res.status(201).json(data);
@@ -54,7 +53,7 @@ function deleteGoal(req, res) {
 function getProject(req, res) {
   db.Project.find({}, function(err, data) {
     if (err) {
-      console.log('Error retrieving user from DB.', err);
+      console.log('Error retrieving project from DB.', err);
       res.status(500).send('Internal server error');
     } else {
       res.json(data);
@@ -74,7 +73,7 @@ function createProject(req, res) {
 
   newProject.save(function(err, data) {
     if (err) {
-      console.log('Error saving user to DB.', err);
+      console.log('Error saving project to DB.', err);
       res.status(500).send('Internal server error');
     } else {
       res.status(201).json(data);

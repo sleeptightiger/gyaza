@@ -1,5 +1,4 @@
-const db = require('../models');
-
+const db = require('../models/user');
 
 function getUser(req, res) {
   db.User.find({}, function(err, data) {
