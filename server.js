@@ -15,6 +15,7 @@ const port = process.env.PORT || 3000;
 app.use(cookieParser());
 app.set('views', './views');
 app.set('view engine', 'ejs');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 require('dotenv').config();
@@ -25,6 +26,8 @@ app.use(passport.session());
 app.use(morgan('dev'));
 
 mongoose.connection.openUri(process.env.DB_CONN);
+
+
 
 const userRoutes = require('./routes/users'),
       chatRoutes = require('./routes/chats'),
