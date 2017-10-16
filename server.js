@@ -1,29 +1,45 @@
 // dependencies
-const express = require('express');
-const bodyParser = require('body-parser');
-//const db = require('./models')
+
+var express = require('express'),
+  bodyParser = require('body-parser'),
+  mongoose = require('mongoose'),
+  session = require('express-session');
+//const model = require('./models')
+
 
 // app config
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(bodyParser.json());
-//set up views
+
+app.use(bodyParser.urlencoded({extended: true}));
+app.set('views', './views');
 app.set('view engine', 'ejs');
+
 
 // app routes
 // you can add route handlers directly in this file like this:
-app.get('/', function(req, res) {
-  res.json({
-    message: 'Welcome to Gyaza!!',
-    type: 'greeting',
-    time: new Date()
-  });
-});
+// app.get('/', function(req, res) {
+//   res.json({
+//     message: 'Welcome to Gyaza!!',
+//     type: 'greeting',
+//     time: new Date()
+//   });
+// });
 
 const userRoutes = require('./routes/users'),
       chatRoutes = require('./routes/chats'),
       projectRoutes = require('./routes/projects');
 
+//signup route with placeholder
+app.get('/signup', function (req, res) {
+  res.render('../views/signup');
+});
+
+//log route with placeholder
+app.get('/', function (req, res) {
+  res.render('../views/login');
+});
 
 //routes for user
 app.get('/newUser', userRoutes.getUser);
