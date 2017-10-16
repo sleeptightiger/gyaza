@@ -20,13 +20,7 @@ require('dotenv').config();
 
 app.use(express.static('public'))
 
-mongoose.connection.openUri(process.env.DB_CONN, function(err, conn) {
-  if (err) {
-    console.log('Error connecting to Mongo DB', err);
-  } else {
-    console.log('Successfully connected mongoose to Mongo DB');
-  }
-});
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
