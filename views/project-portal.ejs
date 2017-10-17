@@ -24,7 +24,7 @@
         <a href="#" class="create-new-project"><img src="images/iconmonstr-edit-11-32.png"/></a>
       </nav>
       <span class="logo">Gyaza</span>
-      <h1>Project Portal</h1>
+      <h1><%= userName %>'s Project Portal</h1>
     </header>
 
   <div class="tabs">
@@ -39,8 +39,9 @@
         <section class="section-1">
           <div class="mediabox">
             <img src="images/chinese-panda-bear.png" alt="project-image"/>
-            <h3>insert Current Project Name</h3>
-            <p>Insert info/decription for project</p>
+            <h3><%= projectName %></h3>
+            <p><%= projectDescription %></p>
+            <p>Completed: <%= isComplete %></p>
           </div>
         </section>
         <section class="section-2">

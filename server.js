@@ -7,6 +7,7 @@ var express = require('express'),
     morgan = require('morgan'),
     session = require('express-session'),
     passport = require('passport');
+    db = require('./models');
 
 
 // app config
@@ -76,6 +77,27 @@ app.post('/newUser', userRoutes.createUser);
 app.get('/newUser/:id', userRoutes.findUserById);
 app.put('/newUser/:id', userRoutes.changeUser);
 app.delete('/newUser/:id', userRoutes.deleteUser);
+
+//adding render route for portal
+app.get('/:userId', function(req, res) {
+    console.log('req.params.userId: ' + req.params.userId);
+    db.User.findOne({_id: req.params.userId }, function(err, data) {
+      console.log(data);
+      db.Project.findOne({_id: data.projects[0] }, function(err, data2) {
+        //res.json(data);
+        console.log(data2.description);
+        res.render('project-portal', {
+          userName: data.local.userName,
+          projects: data.projects,
+          projectName: data2.name,
+          projectDescription: data2.description,
+          isComplete: data2.completed
+        });
+      });
+      });
+
+
+});
 
 //Routes for projects
 app.get('/newProject', projectRoutes.getProject);
