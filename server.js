@@ -18,9 +18,7 @@ app.set('view engine', 'ejs');
 
 require('dotenv').config();
 
-app.use(express.static('public'))
-
-
+app.use(express.static('public'));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));

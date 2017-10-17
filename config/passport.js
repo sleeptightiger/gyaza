@@ -13,20 +13,22 @@ module.exports = function(passport) {
   });
 
   passport.use('local-signup', new LocalStrategy({
-    userNameField: 'username',
+    usernameField: 'username',
     passwordField: 'password',
     passToCallback: true
   },
   function(username, password, done) {
     process.nextTick(function() {
-      User.findOne({ 'local.username' : username}, function(err, user) {
+      User.findOne({ 'local.userName' : username}, function(err, user) {
         if (err) {
           return done(err);
         }
-        if (!user) {
+        if (user) {
+          console.log("existing user: ", user);
           return done(null, false);
         }
-        else {
+        if (!user) {
+          console.log("god help you");
           var newUser = new User();
           newUser.local.userName = username;
           newUser.local.password = newUser.generateHash(password);
@@ -42,4 +44,32 @@ module.exports = function(passport) {
       });
     });
   }));
+
+  passport.use('local-login', new LocalStrategy({
+        // by default, local strategy uses username and password, we will override with email
+        usernameField : 'username',
+        passwordField : 'password',
+        passReqToCallback : true
+    },
+    console.log('Hey there');
+    function(username, password, done) {
+    User.findOne({ 'local.userName' :  username }, function(err, user) {
+      if (err) {
+        console.log(err);
+        return done(err);
+      }
+      if (!user) {
+        console.log("Incorrect username");
+        return done(null, false); // req.flash is the way to set flashdata using connect-flash
+      }
+      if (!user.validPassword(password)) {
+        console.log("Incorrect password");
+        return done(null, false); // create the loginMessage and save it to session as flashdata
+      }
+      // all is well, return successful user
+      console.log(user);
+      return done(null, user);
+    });
+  }));
 };
+
