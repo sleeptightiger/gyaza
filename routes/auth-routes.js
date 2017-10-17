@@ -9,25 +9,31 @@ module.exports = function(app, passport) {
       res.render('signup');
   });
 
-  app.get('/profile', isLoggedIn, function(req, res) {
-      res.render('project-portal', {
-          user : req.user // get the user out of session and pass to template
-      });
+  app.get('/portal', function (req, res) {
+    res.render('../views/project-portal');
   });
 
+  // app.get('/profile', isLoggedIn, function(req, res) {
+  //     res.render('/portal', {
+  //         user : req.user
+  //     });
+  // });
+
   app.post('/signup', passport.authenticate('local-signup', {
-      successRedirect : '/portal', // redirect to the secure profile section
-      failureRedirect : '/signup' // redirect back to the signup page if there is an error
+      successRedirect : '/portal',
+      failureRedirect : '/signup'
   }));
 
   app.post('/', passport.authenticate('local-login', {
-      successRedirect : '/portal', // redirect to the secure profile section
-      failureRedirect : '/' // redirect back to the signup page if there is an error
+      successRedirect : '/portal',
+      failureRedirect : '/'
   }));
 
+
   function isLoggedIn(req, res, next) {
-      if (req.isAuthenticated())  // <-- typo here
+      if (req.isAuthenticated()) {
           return next();
+      }
       res.redirect('/');
   };
 };

@@ -28,7 +28,6 @@ module.exports = function(passport) {
           return done(null, false);
         }
         if (!user) {
-          console.log("god help you");
           var newUser = new User();
           newUser.local.userName = username;
           newUser.local.password = newUser.generateHash(password);
@@ -45,31 +44,34 @@ module.exports = function(passport) {
     });
   }));
 
-  passport.use('local-login', new LocalStrategy({
-        // by default, local strategy uses username and password, we will override with email
-        usernameField : 'username',
-        passwordField : 'password',
-        passReqToCallback : true
-    },
-    console.log('Hey there');
-    function(username, password, done) {
-    User.findOne({ 'local.userName' :  username }, function(err, user) {
-      if (err) {
-        console.log(err);
-        return done(err);
-      }
-      if (!user) {
-        console.log("Incorrect username");
-        return done(null, false); // req.flash is the way to set flashdata using connect-flash
-      }
-      if (!user.validPassword(password)) {
-        console.log("Incorrect password");
-        return done(null, false); // create the loginMessage and save it to session as flashdata
-      }
-      // all is well, return successful user
-      console.log(user);
-      return done(null, user);
+passport.use('local-login', new LocalStrategy({
+      usernameField : 'username',
+      passwordField : 'password',
+      passReqToCallback : true
+  },
+  function(req, username, password, done) {
+    console.log(password);
+    process.nextTick(function() {
+      User.findOne({ 'local.userName' : username}, function(err, user) {
+        if (err) {
+          // console.log(err.stack);
+          return done(err);
+        }
+        if (!user) {
+          console.log("Incorrect username");
+          return done(null, false); // req.flash is the way to set flashdata using connect-flash
+        }
+        if (!user.validPassword(password)) {
+          console.log("Incorrect password", password);
+          return done(null, false); // create the loginMessage and save it to session as flashdata
+        }
+        // all is well, return successful user
+        console.log(user);
+        return done(null, user);
+      });
     });
   }));
 };
+
+
 

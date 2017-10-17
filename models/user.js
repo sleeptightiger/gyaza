@@ -41,11 +41,7 @@ UserSchema.methods.generateHash = function(password) {
 };
 //check password validity
 UserSchema.methods.validPassword = function(password) {
-  return bcrypt.compareSync(password, this.local.password);
-};
-//check username validity
-UserSchema.methods.validUsername = function(userName) {
-    return bcrypt.compareSync(userName, this.local.userName);
+    return bcrypt.compareSync(password, this.local.password);
 };
 
 const User = mongoose.model('User', UserSchema);
