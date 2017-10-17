@@ -20,6 +20,7 @@ require('dotenv').config();
 
 app.use(express.static('public'));
 
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 require('dotenv').config();
@@ -37,7 +38,17 @@ const userRoutes = require('./routes/users'),
       chatRoutes = require('./routes/chats'),
       projectRoutes = require('./routes/projects');
 
+//log route with placeholder
+app.get('/', function (req, res) {
+  res.render('../views/login');
+});
+
+//runs the auth-routes.js
+require('./routes/auth-routes')(app, passport);
+
+
 require('./config/passport')(passport);
+
 
 //routes for user
 app.get('/newUser', userRoutes.getUser);
