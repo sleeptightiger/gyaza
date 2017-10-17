@@ -18,14 +18,8 @@ app.set('view engine', 'ejs');
 
 require('dotenv').config();
 
-<<<<<<< HEAD
 app.use(express.static('public'));
-=======
-app.use(express.static('public'))
 
-
-
->>>>>>> c2940472e0a68c5a6ca0010bddf66282db50f930
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
@@ -35,41 +29,35 @@ app.use(session({secret: 'bearden'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(morgan('dev'));
-
-require('./config/passport')(passport);
-//require('./routes/auth-routes.js');
-
+//runs the auth-routes.js
+require('./routes/auth-routes')(app, passport);
 
 mongoose.connection.openUri(process.env.DB_CONN);
-
-require('./config/passport')(passport);
-
 
 const userRoutes = require('./routes/users'),
       chatRoutes = require('./routes/chats'),
       projectRoutes = require('./routes/projects');
 
-//signup route with placeholder
-app.get('/signup', function (req, res) {
-  res.render('../views/signup');
-});
+// //signup route with placeholder
+// app.get('/signup', function (req, res) {
+//   res.render('../views/signup');
+// });
 
-app.get('/login', function (req, res) {
-  res.render('../views/login');
-});
+// app.get('/login', function (req, res) {
+//   res.render('../views/login');
+// });
 
-app.get('/portal', function (req, res) {
-  res.render('../views/project-portal');
-});
+// app.get('/portal', function (req, res) {
+//   res.render('../views/project-portal');
+// });
 
-app.get('/project', function (req, res) {
-  res.render('../views/project-page');
-});
+// app.get('/project', function (req, res) {
+//   res.render('../views/project-page');
+// });
 
-app.get('/profile', function (req, res) {
-  res.render('../views/profile');
-});
-
+// app.get('/profile', function (req, res) {
+//   res.render('../views/profile');
+// });
 
 
 //log route with placeholder
@@ -80,6 +68,7 @@ app.get('/', function (req, res) {
 //runs the auth-routes.js
 require('./routes/auth-routes')(app, passport);
 
+require('./config/passport')(passport);
 
 //routes for user
 app.get('/newUser', userRoutes.getUser);
