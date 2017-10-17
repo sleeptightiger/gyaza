@@ -28,38 +28,16 @@ app.use(session({secret: 'bearden'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(morgan('dev'));
-
-require('./config/passport')(passport);
-//require('./routes/auth-routes.js');
-
+//runs the auth-routes.js
+require('./routes/auth-routes')(app, passport);
 
 mongoose.connection.openUri(process.env.DB_CONN);
-
-require('./config/passport')(passport);
-
 
 const userRoutes = require('./routes/users'),
       chatRoutes = require('./routes/chats'),
       projectRoutes = require('./routes/projects');
 
-//signup route with placeholder
-app.get('/signup', function (req, res) {
-  res.render('../views/signup');
-});
-
-app.get('/portal', function (req, res) {
-  res.render('../views/project-portal');
-});
-
-
-//log route with placeholder
-app.get('/', function (req, res) {
-  res.render('../views/login');
-});
-
-//runs the auth-routes.js
-require('./routes/auth-routes')(app, passport);
-
+require('./config/passport')(passport);
 
 //routes for user
 app.get('/newUser', userRoutes.getUser);
