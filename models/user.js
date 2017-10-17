@@ -37,12 +37,14 @@ const UserSchema = new mongoose.Schema({
 
 //generate hash
 UserSchema.methods.generateHash = function(password) {
-  return bcrypt.hashSync(bcrypt.genSaltSync(8), null);
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
 };
-//check password validity
+
+// checking if password is valid
 UserSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.local.password);
 };
+
 
 const User = mongoose.model('User', UserSchema);
 
