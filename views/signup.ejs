@@ -31,18 +31,18 @@
 
     <div class="content">
 
-      <form id="signup-form" method="post">
+      <form id="signup-form" action="/signup" method="post">
         <div class="field name-box">
           <!-- <label for="name">Name</label> -->
-          <input type="text" id="name" placeholder="Username"/>
+          <input type="text" id="name" name="username" placeholder="Username"/>
         </div>
-        <div class="field email-box">
+   <!--      <div class="field email-box">
        <!--    <label for="email">Email</label> -->
-          <input type="text" id="email" placeholder="name@email.com" required/>
-        </div>
+      <!--     <input type="text" id="email" name="" placeholder="name@email.com" required/>
+        </div> -->
         <div class="field password">
        <!--    <label for="password">Password</label> -->
-          <input type="password" id="password" placeholder="Password"/>
+          <input type="password" id="password" name="password" placeholder="Password"/>
         </div>
         <input class="button" type="submit" value="Send"/>
         <p>Already have an account? <a href="/">Login</a></p>

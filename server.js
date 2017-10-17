@@ -40,25 +40,25 @@ const userRoutes = require('./routes/users'),
       projectRoutes = require('./routes/projects');
 
 // //signup route with placeholder
-// app.get('/signup', function (req, res) {
-//   res.render('../views/signup');
-// });
+app.get('/signup', function (req, res) {
+  res.render('../views/signup');
+});
 
-// app.get('/login', function (req, res) {
-//   res.render('../views/login');
-// });
+app.get('/login', function (req, res) {
+  res.render('../views/login');
+});
 
-// app.get('/portal', function (req, res) {
-//   res.render('../views/project-portal');
-// });
+app.get('/portal', function (req, res) {
+  res.render('../views/project-portal');
+});
 
-// app.get('/project', function (req, res) {
-//   res.render('../views/project-page');
-// });
+app.get('/project', function (req, res) {
+  res.render('../views/project-page');
+});
 
-// app.get('/profile', function (req, res) {
-//   res.render('../views/profile');
-// });
+app.get('/profile', function (req, res) {
+  res.render('../views/profile');
+});
 
 
 //log route with placeholder
