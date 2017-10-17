@@ -20,6 +20,11 @@ module.exports = function(app, passport) {
       failureRedirect : '/signup' // redirect back to the signup page if there is an error
   }));
 
+  app.post('/', passport.authenticate('local-login', {
+      successRedirect : '/portal', // redirect to the secure profile section
+      failureRedirect : '/' // redirect back to the signup page if there is an error
+  }));
+
   function isLoggedIn(req, res, next) {
       if (req.isAuthenticated())  // <-- typo here
           return next();

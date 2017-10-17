@@ -13,7 +13,7 @@ module.exports = function(passport) {
   });
 
   passport.use('local-signup', new LocalStrategy({
-    userNameField: 'username',
+    usernameField: 'username',
     passwordField: 'password',
     passToCallback: true
   },
@@ -44,4 +44,32 @@ module.exports = function(passport) {
       });
     });
   }));
+
+  passport.use('local-login', new LocalStrategy({
+        // by default, local strategy uses username and password, we will override with email
+        usernameField : 'username',
+        passwordField : 'password',
+        passReqToCallback : true
+    },
+    console.log('Hey there');
+    function(username, password, done) {
+    User.findOne({ 'local.userName' :  username }, function(err, user) {
+      if (err) {
+        console.log(err);
+        return done(err);
+      }
+      if (!user) {
+        console.log("Incorrect username");
+        return done(null, false); // req.flash is the way to set flashdata using connect-flash
+      }
+      if (!user.validPassword(password)) {
+        console.log("Incorrect password");
+        return done(null, false); // create the loginMessage and save it to session as flashdata
+      }
+      // all is well, return successful user
+      console.log(user);
+      return done(null, user);
+    });
+  }));
 };
+
