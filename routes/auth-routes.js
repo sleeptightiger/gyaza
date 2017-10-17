@@ -19,10 +19,15 @@ module.exports = function(app, passport) {
   //     });
   // });
 
-  app.post('/signup', passport.authenticate('local-signup', {
-      successRedirect : '/portal',
-      failureRedirect : '/signup'
-  }));
+  // app.post('/signup', passport.authenticate('local-signup', {
+  //     successRedirect : '/portal/',
+  //     failureRedirect : '/signup'
+  // }));
+
+  app.post('/signup', passport.authenticate('local-signup'), function(req, res) {
+    //console.log('userName: ' +);
+    res.redirect('/portal/' + req.user.local.userName);
+  });
 
   app.post('/', passport.authenticate('local-login', {
       successRedirect : '/portal',
@@ -37,6 +42,3 @@ module.exports = function(app, passport) {
       res.redirect('/');
   };
 };
-
-
-

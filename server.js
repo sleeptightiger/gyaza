@@ -48,17 +48,17 @@ app.get('/login', function (req, res) {
   res.render('../views/login');
 });
 
-app.get('/portal', function (req, res) {
-  res.render('../views/project-portal');
-});
+// app.get('/portal', function (req, res) {
+//   res.render('../views/project-portal');
+// });
 
-app.get('/project', function (req, res) {
-  res.render('../views/project-page');
-});
+// app.get('/project', function (req, res) {
+//   res.render('../views/project-page');
+// });
 
-app.get('/profile', function (req, res) {
-  res.render('../views/profile');
-});
+// app.get('/profile', function (req, res) {
+//   res.render('../views/profile');
+// });
 
 
 //log route with placeholder
@@ -79,22 +79,11 @@ app.put('/newUser/:id', userRoutes.changeUser);
 app.delete('/newUser/:id', userRoutes.deleteUser);
 
 //adding render route for portal
-app.get('/:userId', function(req, res) {
-    console.log('req.params.userId: ' + req.params.userId);
-    db.User.findOne({_id: req.params.userId }, function(err, data) {
-      console.log(data);
-      db.Project.findOne({_id: data.projects[0] }, function(err, data2) {
-        //res.json(data);
-        console.log(data2.description);
-        res.render('project-portal', {
-          userName: data.local.userName,
-          projects: data.projects,
-          projectName: data2.name,
-          projectDescription: data2.description,
-          isComplete: data2.completed
-        });
-      });
-      });
+app.get('/portal/:userName', function(req, res) {
+    console.log('req.params.userName: ' + req.params.userName);
+    db.User.findOne({username: req.params.userName }, function(err, data) {
+      res.render('../views/project-portal', {username: username});
+    });
 
 
 });
