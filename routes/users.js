@@ -50,6 +50,7 @@ function deleteUser(req, res) {
     });
   };
 
+
 module.exports = {
   getUser: getUser,
   createUser: createUser,

@@ -18,5 +18,6 @@ module.exports = {
   // TODO: add references to all models here
   User: userModel.User,
   Project: projectModel.Project,
-  Chat: chatModel.Chat
+  Chat: chatModel.Chat,
+  Goal: projectModel.Goal
 };

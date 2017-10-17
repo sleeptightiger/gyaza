@@ -2,8 +2,14 @@ const mongoose = require('mongoose');
 
 const GoalsSchema = new mongoose.Schema({
   description: String,
-  voteToActive: Boolean,
-  voteToComplete: Boolean
+  voteToActive: {
+    type: Boolean,
+    default: false
+  },
+  voteToComplete: {
+    type: Boolean,
+    default: false
+  }
 });
 
 const ProjectSchema = new mongoose.Schema({
