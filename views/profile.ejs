@@ -4,34 +4,58 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-     <!-- external CSS link -->
+  <!-- external CSS link -->
   <link rel="stylesheet" href="styles/reset.css">
   <link rel="stylesheet" href="styles/normalize.css">
-  <link rel="stylesheet" href="styles/app.css">
-
+  <link rel="stylesheet" href="styles/styles.css">
 
   <!-- font -->
   <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Inconsolata|Lato|News+Cycle" rel="stylesheet">
-  <!-- Add jQuery library -->
-  <script type="application/javascript" src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
-  <script type="text/javascript" src="js/script.js"></script>
   <title>Profile Page</title>
 
 </head>
 <body>
-  <h1>Project Portal</h1>
-    <div class="tabs current-tab">
-    </div>
-    <div class ="tabs completed-tab">
-    </div>
-     <div class ="tabs profile-tab">
-      <h1>Hi, User's Name</h1>
-    </div>
+  <div class="whole-page-container">
+    <header class="clearfix">
+      <nav>
+        <a href="login" class="log-in"><img src="images/iconmonstr-log-in-3-32.png"/></a>
+        <a href="login" class="log-out"><img src="images/iconmonstr-log-out-9-32.png"/></a>
+        <a href="profile" class="profile-page"><img src="images/iconmonstr-user-20-32.png"/></a>
+        <a href="#" class="create-new-project"><img src="images/iconmonstr-edit-11-32.png"/></a>
+      </nav>
+      <span class="logo">Gyaza</span>
+      <h1>Profile</h1>
+    </header>
 
-  <button class="create-new">Create New Project</button>
+  <div class="tabs">
+    <nav>
+      <ul>
+        <li class="tab-current"><a href="project">Current Project</a></li>
+        <li class="tab-current"><a href="portal">Past Projects</a></li>
+      </ul>
+    </nav>
+
+    <div class="user-info">
+        <section class="profile">
+          <div class="box">
+            <img src="images/iconmonstr-generation-10-120.png" alt="user image"/>
+            <h3>User Info</h3>
+            <p>Insert User Info here</p>
+          </div>
+          <button>Create a new project</button>
+        </section>
+    </div><!--end of content-->
+
+  </div> <!--end of tabs-container-->
+
+</div> <!--end of whole-page-container-->
+<!-- <div class="push"></div> -->
+<footer class="clearfix">Made by: GerBear, CareBear, and SofaBear</footer>
 
 <!--APPLICATION SCRIPTS-->
-  <script src="scripts/app.js"></script>
+<!-- Add jQuery library -->
+<script type="application/javascript" src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
+<script src="scripts/app.js"></script>
 
 </body>
 </html>
