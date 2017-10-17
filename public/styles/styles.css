@@ -66,6 +66,10 @@ header h1{
 }
 
 /* tabs */
+.tabs{
+  margin: 0;
+}
+
 .tabs nav{
   text-align: center;
   box-sizing: border-box;
@@ -126,7 +130,6 @@ header h1{
   background-color: #ff006e;
 }
 
-
 /* Content COVER*/
 /*.content section {
   font-size: 1.25em;
@@ -146,11 +149,11 @@ header h1{
   clear: both;
 }*/
 
-/* content display */
+/* content display Projet-portal*/
 .content section {
   color: #ff006e;
   font-size: 1.25em;
-  padding: 3em 1em;
+  padding: 4em 1em;
   max-width: 1230px;
   margin: 0 auto;
 }
@@ -162,6 +165,11 @@ header h1{
 .content section:hover{
   background-color: rgba(255, 0, 110, 0.7);
   color: #ffffff;
+}
+
+.content section a{
+  text-decoration: none;
+  color: #ff006e;
 }
 
 .mediabox {
@@ -218,6 +226,23 @@ header h1{
 
 .profile{
   text-align: center;
+}
+
+/*projet page styling*/
+.chat-goals-container{
+  display: flex;
+  flex: 2;
+  flex-direction: row;
+}
+
+.chat-goals-container .chat{
+  flex-direction: column-reverse;
+  flex: 1;
+}
+
+.chat-goals-container .goals{
+  flex-direction: column-reverse;
+  flex: 1;
 }
 
 /*Sign Up sheet Content*/
@@ -310,7 +335,7 @@ text-align: center;
 padding: 1em 1em;
 }
 
-footer .clearfix:after {
+#clearfix:after {
   visibility: hidden;
   display: block;
   content: " ";
