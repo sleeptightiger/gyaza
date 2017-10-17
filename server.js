@@ -32,6 +32,8 @@ app.use(passport.session());
 app.use(morgan('dev'));
 //runs the auth-routes.js
 require('./routes/auth-routes')(app, passport);
+//runs goal-routes.js
+// require('./routes/goal-routes')();
 
 mongoose.connection.openUri(process.env.DB_CONN);
 
@@ -39,7 +41,7 @@ const userRoutes = require('./routes/users'),
       chatRoutes = require('./routes/chats'),
       projectRoutes = require('./routes/projects');
 
-// //signup route with placeholder
+// // //signup route with placeholder
 app.get('/signup', function (req, res) {
   res.render('../views/signup');
 });
@@ -59,7 +61,6 @@ app.get('/login', function (req, res) {
 // app.get('/profile', function (req, res) {
 //   res.render('../views/profile');
 // });
-
 
 //log route with placeholder
 app.get('/', function (req, res) {
