@@ -41,6 +41,7 @@ const userRoutes = require('./routes/users'),
       chatRoutes = require('./routes/chats'),
       projectRoutes = require('./routes/projects');
 
+
 //CHAT BOX
 app.get('/project-page', function(req, res){
   res.sendFile(__dirname + './views/project-page.ejs');
@@ -58,9 +59,11 @@ app.get('/portal', function (req, res) {
   res.render('../views/project-portal');
 });
 
+
 app.get('/project', function (req, res) {
   res.render('../views/project-page');
 });
+
 
 app.get('/profile', function (req, res) {
   res.render('../views/profile');
@@ -99,7 +102,7 @@ app.get('/portal/:userId', function(req, res) {
               description: data2.description,
               isComplete: data2.completed
             });
-            console.log(data.projects);
+            //console.log(data.projects);
             res.render('project-portal', {
             userName: data.local.userName,
             userId: req.params.userId,
