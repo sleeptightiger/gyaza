@@ -8,7 +8,14 @@
   <link rel="stylesheet" href="styles/reset.css">
   <link rel="stylesheet" href="styles/normalize.css">
   <link rel="stylesheet" href="styles/styles.css">
-
+  <style>
+    #chatform { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
+    #chatform input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
+    #chatform button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
+    #messages { list-style-type: none; margin: 0; padding: 0; }
+    #messages li { padding: 5px 10px; }
+    #messages li:nth-child(odd) { background: #eee; }
+  </style>
   <!-- font -->
   <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Inconsolata|Lato|News+Cycle" rel="stylesheet">
 
@@ -41,7 +48,11 @@
           <div>
             <img src="images/iconmonstr-speech-bubble-28-120.png" alt="chat"/>
             <h3>Chat Room</h3>
-            <p>Insert chat room here</p>
+            <ul id="messages"></ul>
+            <form id='chatform' action="">
+              <input id="m" autocomplete="off" /><button>Send</button>
+            </form>
+
           </div>
         </section>
         <section class="goals">
@@ -64,6 +75,19 @@
 <!-- Add jQuery library -->
 <script type="application/javascript" src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
 <script src="scripts/goals-script.js"></script>
-
+<script src="/socket.io/socket.io.js"></script>
+<script>
+$(function () {
+  var socket = io();
+  $('#chatform').submit(function(){
+    socket.emit('chat message', $('#m').val());
+    $('#m').val('');
+    return false;
+  });
+  socket.on('chat message', function(msg){
+    $('#messages').append($('<li>').text(msg));
+  });
+});
+</script>
 </body>
 </html>
