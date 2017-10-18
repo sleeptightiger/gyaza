@@ -75,33 +75,38 @@ app.get('/portal/:userId', function(req, res) {
     var project = {};
     var name = '';
     db.User.findOne({_id: req.params.userId }, function(err, data) {
-
+        var array = [];
         //res.render('../views/project-portal');
-        console.log(data.projects);
-        data.projects.forEach(function (projectData) {
+        //console.log('req.params.userId: ' + req.params.userId);
+        //data.projects.forEach(function (projectData)
+        let count = 0;
+        for(var i = 0; i < data.projects.length; i++){
 
-          db.Project.findOne({_id: projectData }, function(err, data2) {
-
+          db.Project.findOne({_id: data.projects[i] }, function(err, data2) {
+            count++;
             var project = new db.Project({
               name: data2.name,
               description: data2.description,
               isComplete: data2.completed
             });
+            array.push(project);
+            console.log(array);
             //console.log(data.projects);
-            res.render('project-portal', {
-            userName: data.local.userName,
-            userId: req.params.userId,
-            projects: data.projects,
-            projectName: project.name,
-            projectDescription: project.description,
-            projectIsCompleted: project.isComplete,
-            bear: bear
-            });
+            console.log('data.projects.length: ' + data.projects.length + ' ' + ' count: ' + count);
+            if(count == data.projects.length) {
+              console.log('We Are At The Last One!!!');
+              res.render('project-portal', {
+              userName: data.local.userName,
+              userId: req.params.userId,
+              projects: array,
+              bear: bear
+              });
+            }
 
 
           });
 
-        });
+        };
 
 
 
