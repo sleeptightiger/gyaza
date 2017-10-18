@@ -3,20 +3,20 @@ const db = require('./models');
 
 
 // remove all records that match {} -- which means remove ALL records
-db.User.remove({}, function(err, users){
-  if(err) {
-    console.log('Error occurred in remove', err);
-  } else {
-    console.log('removed all users');
-  }
-});
-db.Project.remove({}, function(err, projects){
-  if(err) {
-    console.log('Error occurred in remove', err);
-  } else {
-    console.log('removed all projects');
-  }
-});
+// db.User.remove({}, function(err, users){
+//   if(err) {
+//     console.log('Error occurred in remove', err);
+//   } else {
+//     console.log('removed all users');
+//   }
+// });
+// db.Project.remove({}, function(err, projects){
+//   if(err) {
+//     console.log('Error occurred in remove', err);
+//   } else {
+//     console.log('removed all projects');
+//   }
+// });
 
 
 let user1 = db.User({
@@ -91,7 +91,29 @@ project1.save(function(err, savedProject) {
 
 });
 
-// 
+const project2 = db.Project({
+  name: "Second Project",
+  contributors: [user1],
+  description: "this is the second one",
+  completed: false,
+  goals: [],
+  chat: "Chats go here"
+});
+
+
+project2.save(function(err, savedProject2) {
+
+  if(err) {
+      console.log('WHO MOVED MY Project?');
+  } else {
+      console.log('My Project is safe.', savedProject2);
+  }
+
+});
+
+//process.exit();
+
+//
 // //console.log("userName: " + user1.userName);
 // db.User.findOneAndUpdate({userName: "gerBear"}, {projects: [project1]}, function (err, foundUser) {
 //   if (err) {

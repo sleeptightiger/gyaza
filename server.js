@@ -7,6 +7,7 @@ var express = require('express'),
     morgan = require('morgan'),
     session = require('express-session'),
     passport = require('passport');
+    db = require('./models');
 
 
 // app config
@@ -31,8 +32,6 @@ app.use(passport.session());
 app.use(morgan('dev'));
 //runs the auth-routes.js
 require('./routes/auth-routes')(app, passport);
-//runs goal-routes.js
-// require('./routes/goal-routes')();
 
 mongoose.connection.openUri(process.env.DB_CONN);
 
@@ -40,7 +39,7 @@ const userRoutes = require('./routes/users'),
       chatRoutes = require('./routes/chats'),
       projectRoutes = require('./routes/projects');
 
-// // //signup route with placeholder
+// //signup route with placeholder
 app.get('/signup', function (req, res) {
   res.render('../views/signup');
 });
@@ -49,17 +48,18 @@ app.get('/login', function (req, res) {
   res.render('../views/login');
 });
 
-app.get('/portal', function (req, res) {
-  res.render('../views/project-portal');
-});
+// app.get('/portal', function (req, res) {
+//   res.render('../views/project-portal');
+// });
 
 app.get('/project', function (req, res) {
   res.render('../views/project-page');
 });
 
-app.get('/profile', function (req, res) {
-  res.render('../views/profile');
-});
+// app.get('/profile', function (req, res) {
+//   res.render('../views/profile');
+// });
+
 
 //log route with placeholder
 app.get('/', function (req, res) {
@@ -77,6 +77,50 @@ app.post('/newUser', userRoutes.createUser);
 app.get('/newUser/:id', userRoutes.findUserById);
 app.put('/newUser/:id', userRoutes.changeUser);
 app.delete('/newUser/:id', userRoutes.deleteUser);
+
+//adding render route for portal
+app.get('/portal/:userId', function(req, res) {
+
+    let bears = ['chinese-panda-bear', 'bear-face', 'google-panda-circular-symbol'];
+    var bear = bears[Math.floor(Math.random()*bears.length)];
+    var project = {};
+    var name = '';
+    db.User.findOne({_id: req.params.userId }, function(err, data) {
+
+        //res.render('../views/project-portal');
+        console.log(data.projects);
+        data.projects.forEach(function (projectData) {
+
+          db.Project.findOne({_id: projectData }, function(err, data2) {
+
+            var project = new db.Project({
+              name: data2.name,
+              description: data2.description,
+              isComplete: data2.completed
+            });
+            console.log(data.projects);
+            res.render('project-portal', {
+            userName: data.local.userName,
+            userId: req.params.userId, 
+            projects: data.projects,
+            projectName: project.name,
+            projectDescription: project.description,
+            projectIsCompleted: project.isComplete,
+            bear: bear
+            });
+
+
+          });
+
+        });
+
+
+
+     });
+
+
+});
+
 
 //Routes for projects
 app.get('/newProject', projectRoutes.getProject);

@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
    <!-- external CSS link -->
-  <link rel="stylesheet" href="styles/reset.css">
-  <link rel="stylesheet" href="styles/normalize.css">
-  <link rel="stylesheet" href="styles/styles.css">
+  <link rel="stylesheet" href="../styles/reset.css">
+  <link rel="stylesheet" href="../styles/normalize.css">
+  <link rel="stylesheet" href="../styles/styles.css">
 
   <!-- font -->
   <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Inconsolata|Lato|News+Cycle" rel="stylesheet">
@@ -22,29 +22,32 @@
       </nav>
       <span class="logo"><a href="portal">Gyaza</a></span>
       <h1>Project Portal</h1>
+      <h3>Welcome, <%= userName %></h3>
+      <h5>id: <%= userId %></h5>
     </header>
 
   <div class="tabs">
     <nav>
       <ul>
         <li class="tab-current"><a href="portal">Current</a></li>
-        <li class="tab-current"><a href="portal">Past</a></li>
+        <li class="tab-current"><a href="portal">Complete</a></li>
          <li class="tab-current"><a href="portal">Pending</a></li>
       </ul>
     </nav>
 
-    <div class="project-portal-container btn">
+    <div class="content">
+        <%for(var i = 0; i < projects.length; i++) {%>
+          <section class="section"><a href="project">
+            <div class="mediabox">
+              <img src="../images/<%= bear %>.png" alt="project-image"/>
+              <h3><%= projectName %></h3>
+              <p><%= projectDescription %></p>
+            </div></a>
+          </section>
 
-        <button class="create-new-project">Create New</button>
+        <%}%>
 
-        <section class="section"><a href="project">
-          <div class="mediabox">
-            <img src="images/chinese-panda-bear.png" alt="project-image"/>
-            <h3>insert Current Project Name</h3>
-            <p>Insert info/decription for project</p>
-          </div></a>
-        </section>
-        <section class="section"><a href="project">
+        <!-- <section class="section-2"><a href="project">
           <div class="mediabox">
             <img src="images/bear-face.png" alt="project-image"/>
             <h3>insert Past Project Name</h3>
@@ -57,10 +60,10 @@
             <h3>insert Past Project Name</h3>
             <p>Insert info/decription for projects</p>
           </div></a>
-        </section>
-      </div><!--end of content-->
-    </div> <!--end of tabs-container-->
-  </div> <!--end of whole-page-container-->
+        </section> -->
+    </div><!--end of content-->
+  </div> <!--end of tabs-container-->
+</div> <!--end of whole-page-container-->
 <!-- <div class="push"></div> -->
 <footer id="clearfix">Made by: GerBear, CareBear, and SofaBear</footer>
 <!--APPLICATION SCRIPTS-->

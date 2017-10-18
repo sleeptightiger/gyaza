@@ -20,9 +20,15 @@ module.exports = function(app, passport) {
   // });
 
   app.post('/signup', passport.authenticate('local-signup', {
-      successRedirect : '/portal',
+      successRedirect : '/portal/',
       failureRedirect : '/signup'
   }));
+
+  // route for pulling user after login ***not working****
+  // app.post('/signup', passport.authenticate('local-signup'), function(req, res) {
+  //   //console.log('userName: ' +);
+  //   res.redirect('/portal/' + req.user._id);
+  // });
 
   app.post('/', passport.authenticate('local-login', {
       successRedirect : '/portal',
@@ -37,6 +43,3 @@ module.exports = function(app, passport) {
       res.redirect('/');
   };
 };
-
-
-
