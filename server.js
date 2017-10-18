@@ -32,33 +32,22 @@ app.use(passport.session());
 app.use(morgan('dev'));
 //runs the auth-routes.js
 require('./routes/auth-routes')(app, passport);
-
+require('./config/passport')(passport);
 mongoose.connection.openUri(process.env.DB_CONN);
 
 const userRoutes = require('./routes/users'),
       chatRoutes = require('./routes/chats'),
       projectRoutes = require('./routes/projects');
 
-// //signup route with placeholder
-app.get('/signup', function (req, res) {
-  res.render('../views/signup');
-});
 
-app.get('/login', function (req, res) {
-  res.render('../views/login');
-});
 
-// app.get('/portal', function (req, res) {
-//   res.render('../views/project-portal');
-// });
+
 
 app.get('/project', function (req, res) {
   res.render('../views/project-page');
 });
 
-// app.get('/profile', function (req, res) {
-//   res.render('../views/profile');
-// });
+
 
 
 //log route with placeholder
@@ -66,10 +55,10 @@ app.get('/', function (req, res) {
   res.render('../views/login');
 });
 
-//runs the auth-routes.js
-require('./routes/auth-routes')(app, passport);
 
-require('./config/passport')(passport);
+
+
+
 
 //routes for user
 app.get('/newUser', userRoutes.getUser);
@@ -98,10 +87,10 @@ app.get('/portal/:userId', function(req, res) {
               description: data2.description,
               isComplete: data2.completed
             });
-            console.log(data.projects);
+            //console.log(data.projects);
             res.render('project-portal', {
             userName: data.local.userName,
-            userId: req.params.userId, 
+            userId: req.params.userId,
             projects: data.projects,
             projectName: project.name,
             projectDescription: project.description,
