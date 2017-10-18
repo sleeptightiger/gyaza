@@ -6,9 +6,10 @@ var express = require('express'),
     mongoose = require('mongoose'),
     morgan = require('morgan'),
     session = require('express-session'),
-    passport = require('passport');
-    db = require('./models');
-
+    passport = require('passport'),
+    db = require('./models'),
+    http = require('http').Server(express),
+    io = require('socket.io')(http);
 
 // app config
 const app = express();
@@ -33,6 +34,7 @@ app.use(morgan('dev'));
 //runs the auth-routes.js
 require('./routes/auth-routes')(app, passport);
 require('./config/passport')(passport);
+
 mongoose.connection.openUri(process.env.DB_CONN);
 
 const userRoutes = require('./routes/users'),
@@ -40,7 +42,22 @@ const userRoutes = require('./routes/users'),
       projectRoutes = require('./routes/projects');
 
 
+//CHAT BOX
+app.get('/project-page', function(req, res){
+  res.sendFile(__dirname + './views/project-page.ejs');
+});
 
+io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
+  });
+});
+
+//
+
+app.get('/portal', function (req, res) {
+  res.render('../views/project-portal');
+});
 
 
 app.get('/project', function (req, res) {
@@ -48,17 +65,15 @@ app.get('/project', function (req, res) {
 });
 
 
+app.get('/profile', function (req, res) {
+  res.render('../views/profile');
+});
 
 
 //log route with placeholder
 app.get('/', function (req, res) {
   res.render('../views/login');
 });
-
-
-
-
-
 
 //routes for user
 app.get('/newUser', userRoutes.getUser);
@@ -133,6 +148,11 @@ app.put('/newChat/:id', chatRoutes.changeChat);
 app.delete('/newChat/:id', chatRoutes.deleteChat);
 
 //start app
+
+// http.listen(3000, function(){
+//   console.log('listening on *:3000');
+// });
+
 app.listen(port, function(err) {
   if (err) {
     console.log(`Error starting server on port ${port}`, err);
