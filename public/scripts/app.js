@@ -12,7 +12,7 @@
 //       $("input + label + span").css({ opacity: 0 });
 //     }
 //   });
-// });
+// // })
 
 // $("#signup-form .field:first-child input").blur(function() {
 //   $("#signup-form .field:first-child input").each(function() {
