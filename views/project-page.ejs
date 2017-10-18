@@ -20,7 +20,7 @@
   <div class="whole-page-container Site-content">
     <header class="clearfix">
       <nav>
-        <a href="login" class="log-out"><img src="images/iconmonstr-log-out-9-32.png"/></a>
+        <a href="/" class="log-out"><img src="images/iconmonstr-log-out-9-32.png"/></a>
       </nav>
       <span class="logo"><a href="portal">Gyaza</a></span>
       <h1>Users's Projects</h1>
@@ -37,18 +37,21 @@
 
     <div class="chat-goals-container">
 
-        <section class="chat">
+        <section class="chat chat-box">
           <div>
-            <img src="images/iconmonstr-speech-bubble-28-120.png" alt="chat"/>
             <h3>Chat Room</h3>
-            <p>Insert chat room here</p>
+            <ul id="messages"></ul>
+            <form id='chatform' action="">
+              <input id="m" autocomplete="off" /><button>Send</button>
+            </form>
           </div>
         </section>
+
         <section class="goals">
           <div class="myDIV" id="myGoals">
             <h3>Goals:</h3>
               <input type="text" id="myInput" placeholder="Title...">
-              <span onclick="newElement()" class="addBtn">Add</span>
+              <span onclick="" class="addBtn" id="ayy">Add</span>
             </div>
             <ul id="myUL">
             </ul>
@@ -64,6 +67,19 @@
 <!-- Add jQuery library -->
 <script type="application/javascript" src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
 <script src="scripts/goals-script.js"></script>
-
+<script src="/socket.io/socket.io.js"></script>
+<script>
+$(function () {
+  var socket = io();
+  $('#chatform').submit(function(){
+    socket.emit('chat message', $('#m').val());
+    $('#m').val('');
+    return false;
+  });
+  socket.on('chat message', function(msg){
+    $('#messages').append($('<li>').text(msg));
+  });
+});
+</script>
 </body>
 </html>

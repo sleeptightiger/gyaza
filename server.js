@@ -1,5 +1,4 @@
 // dependencies
-
 var express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
@@ -9,19 +8,14 @@ var express = require('express'),
     passport = require('passport');
     db = require('./models');
 
-
 // app config
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(cookieParser());
 app.set('views', './views');
 app.set('view engine', 'ejs');
-
 require('dotenv').config();
-
 app.use(express.static('public'));
-
-
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 require('dotenv').config();
@@ -30,35 +24,34 @@ app.use(session({secret: 'bearden'}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(morgan('dev'));
+
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
+
+mongoose.connection.openUri(process.env.DB_CONN);
+
 //runs the auth-routes.js
 require('./routes/auth-routes')(app, passport);
 require('./config/passport')(passport);
-mongoose.connection.openUri(process.env.DB_CONN);
 
 const userRoutes = require('./routes/users'),
       chatRoutes = require('./routes/chats'),
       projectRoutes = require('./routes/projects');
 
-
-
-
-
 app.get('/project', function (req, res) {
   res.render('../views/project-page');
 });
 
-
-
-
-//log route with placeholder
-app.get('/', function (req, res) {
-  res.render('../views/login');
+app.get('/', function(req, res){
+  res.sendFile(__dirname + '/index.html');
 });
 
+io.on('connection', function(socket){
+  socket.on('chat message', function(msg){
+    io.emit('chat message', msg);
 
-
-
-
+  });
+});
 
 //routes for user
 app.get('/newUser', userRoutes.getUser);
@@ -115,7 +108,6 @@ app.get('/portal/:userId', function(req, res) {
 
 });
 
-
 //Routes for projects
 app.get('/newProject', projectRoutes.getProject);
 app.post('/newProject', projectRoutes.createProject);
@@ -137,11 +129,6 @@ app.get('/newChat/:id', chatRoutes.findChatById);
 app.put('/newChat/:id', chatRoutes.changeChat);
 app.delete('/newChat/:id', chatRoutes.deleteChat);
 
-//start app
-app.listen(port, function(err) {
-  if (err) {
-    console.log(`Error starting server on port ${port}`, err);
-  } else {
-    console.log(`Server running on port ${port}.`);
-  }
+http.listen(3000, function(){
+  console.log('listening on *:3000');
 });
