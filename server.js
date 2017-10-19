@@ -98,14 +98,19 @@ app.get('/portal/:userId', function(req, res) {
 
 
           });
-
-        };
-
-
-
-     });
-
-
+          //console.log(data.projects);
+          res.render('project-portal', {
+          userName: data.local.userName,
+          userId: req.params.userId,
+          projects: data.projects,
+          projectName: project.name,
+          projectDescription: project.description,
+          projectIsCompleted: project.isComplete,
+          bear: bear
+          });
+        });
+      });
+   });
 });
 
 //Routes for projects
