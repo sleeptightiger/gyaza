@@ -72,32 +72,44 @@ app.get('/portal/:userId', function(req, res) {
         var userId = req.params.userId;
         var userName = data.local.userName;
         var length = data.projects.length;
+        console.log(length);
         let count = 0;
-        for(var i = 0; i < length; i++){
-          bear = bears[Math.floor(Math.random()*bears.length)];
-          db.Project.findOne({_id: data.projects[i] }, function(err, data2) {
-            count++;
-            var project = new db.Project({
-              name: data2.name,
-              description: data2.description,
-              isComplete: data2.completed
-            });
-            array.push(project);
-
-            if(count == length) {
-
-              res.render('project-portal', {
-              userName: userName,
-              userId: userId,
-              projects: array,
-              bear: bear
+        if (length != 0) {
+          for(var i = 0; i < length; i++){
+            console.log("I'm in the loop!!");
+            bear = bears[Math.floor(Math.random()*bears.length)];
+            db.Project.findOne({_id: data.projects[i] }, function(err, data2) {
+              count++;
+              var project = new db.Project({
+                name: data2.name,
+                description: data2.description,
+                isComplete: data2.completed
               });
-            }
+              array.push(project);
+
+              if(count == length) {
+
+                res.render('project-portal', {
+                userName: userName,
+                userId: userId,
+                projects: array,
+                bear: bear
+                });
+              }
 
 
-          });
+            });
 
-        };
+          };
+
+      } else {
+        res.render('project-portal', {
+        userName: userName,
+        userId: userId,
+        projects: [],
+        bear: bear
+        });
+      }
       });
    });
 
