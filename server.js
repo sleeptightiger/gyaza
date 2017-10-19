@@ -62,50 +62,36 @@ app.delete('/newUser/:id', userRoutes.deleteUser);
 
 //adding render route for portal
 app.get('/portal/:userId', function(req, res) {
+  let bears = ['chinese-panda-bear', 'bear-face', 'google-panda-circular-symbol'];
+  var bear = bears[Math.floor(Math.random()*bears.length)];
+  var project = {};
+  var name = '';
+  db.User.findOne({_id: req.params.userId }, function(err, data) {
 
-    let bears = ['chinese-panda-bear', 'bear-face', 'google-panda-circular-symbol'];
-    var bear = bears[Math.floor(Math.random()*bears.length)];
-    var project = {};
-    var name = '';
-    db.User.findOne({_id: req.params.userId }, function(err, data) {
-        var array = [];
-        //res.render('../views/project-portal');
-        //console.log('req.params.userId: ' + req.params.userId);
-        //data.projects.forEach(function (projectData)
-        let count = 0;
-        for(var i = 0; i < data.projects.length; i++){
+      //res.render('../views/project-portal');
+      console.log(data.projects);
+      data.projects.forEach(function (projectData) {
 
-          db.Project.findOne({_id: data.projects[i] }, function(err, data2) {
-            count++;
-            var project = new db.Project({
-              name: data2.name,
-              description: data2.description,
-              isComplete: data2.completed
-            });
-            array.push(project);
-            console.log(array);
-            //console.log(data.projects);
-            console.log('data.projects.length: ' + data.projects.length + ' ' + ' count: ' + count);
-            if(count == data.projects.length) {
-              console.log('We Are At The Last One!!!');
-              res.render('project-portal', {
-              userName: data.local.userName,
-              userId: req.params.userId,
-              projects: array,
-              bear: bear
-              });
-            }
+        db.Project.findOne({_id: projectData }, function(err, data2) {
 
-
+          var project = new db.Project({
+            name: data2.name,
+            description: data2.description,
+            isComplete: data2.completed
           });
-
-        };
-
-
-
-     });
-
-
+          //console.log(data.projects);
+          res.render('project-portal', {
+          userName: data.local.userName,
+          userId: req.params.userId,
+          projects: data.projects,
+          projectName: project.name,
+          projectDescription: project.description,
+          projectIsCompleted: project.isComplete,
+          bear: bear
+          });
+        });
+      });
+   });
 });
 
 //Routes for projects
