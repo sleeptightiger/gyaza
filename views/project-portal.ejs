@@ -36,6 +36,7 @@
     </nav>
 
     <div class="content">
+        <button type="button" name="button">Create Project</button>
         <%for(var i = 0; i < projects.length; i++) {%>
           <section class="section"><a href="project">
             <div class="mediabox">
@@ -46,7 +47,21 @@
           </section>
 
         <%}%>
+  <div class="pop-up hide">
+    <form id="pop-form" action="/project-portal/<%= userId %>" method="post">
+      <div class="field name">
+        <input type="text" id="name" name="name" placeholder="Project Name"/>
+      </div>
+      <div class="field contributors">
+        <input type="text" id="contributors" name="contributors" placeholder="Contributors1, Contributors2, ..."/>
+      </div>
+      <textarea name="description" form="pop-up" rows="8" cols="50"></textarea>
+      <div class="button">
+        <input class="button" type="submit" value="Create"/>
+      </div>
 
+    </form>
+  </div>
 
 
   </div> <!--end of tabs-container-->
@@ -56,6 +71,6 @@
 <!--APPLICATION SCRIPTS-->
 <!-- Add jQuery library -->
 <script type="application/javascript" src="http://code.jquery.com/jquery-2.2.3.min.js"></script>
-<script src="scripts/mongodbApp.js"></script>
+<script src="../scripts/portal.js"></script>
 </body>
 </html>

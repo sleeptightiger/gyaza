@@ -83,11 +83,9 @@ app.get('/portal/:userId', function(req, res) {
               isComplete: data2.completed
             });
             array.push(project);
-            console.log(array);
-            console.log(data.projects);
-            console.log('data.projects.length: ' + length + ' ' + ' count: ' + count);
+
             if(count == length) {
-              console.log('We Are At The Last One!!!');
+
               res.render('project-portal', {
               userName: userName,
               userId: userId,
@@ -98,20 +96,30 @@ app.get('/portal/:userId', function(req, res) {
 
 
           });
-          //console.log(data.projects);
-          // res.render('project-portal', {
-          // userName: data.local.userName,
-          // userId: req.params.userId,
-          // projects: data.projects,
-          // projectName: project.name,
-          // projectDescription: project.description,
-          // projectIsCompleted: project.isComplete,
-          // bear: bear
-          // });
+
         };
       });
    });
 
+app.post('/portal-portal/:userId', function(req, res) {
+  let cont = req.body.contributors;
+  //TODO takin multiple contributors
+  const newProject = db.Project({
+    name: req.body.name,
+    contributors: req.param.userId,
+    description: req.body.description
+  });
+
+  newProject.save(function(err, data) {
+    if (err) {
+      console.log('Error saving project to DB.', err);
+      res.status(500).send('Internal server error');
+    } else {
+      res.status(201).json(data);
+    }
+  });
+  res.render('portal/:userId');
+});
 
 //Routes for projects
 app.get('/newProject', projectRoutes.getProject);
