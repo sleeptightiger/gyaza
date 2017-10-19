@@ -38,8 +38,11 @@ const userRoutes = require('./routes/users'),
       chatRoutes = require('./routes/chats'),
       projectRoutes = require('./routes/projects');
 
-app.get('/project', function (req, res) {
-  res.render('../views/project-page');
+app.get('/project/:projectId', function (req, res) {
+  db.Project.findOne({_id: req.params.userId }, function(err, data) {
+    res.render('../views/project-page');
+  });
+
 });
 
 app.get('/', function(req, res){
