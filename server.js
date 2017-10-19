@@ -72,36 +72,48 @@ app.get('/portal/:userId', function(req, res) {
         var userId = req.params.userId;
         var userName = data.local.userName;
         var length = data.projects.length;
+        console.log(length);
         let count = 0;
-        for(var i = 0; i < length; i++){
-          bear = bears[Math.floor(Math.random()*bears.length)];
-          db.Project.findOne({_id: data.projects[i] }, function(err, data2) {
-            count++;
-            var project = new db.Project({
-              name: data2.name,
-              description: data2.description,
-              isComplete: data2.completed
-            });
-            array.push(project);
-
-            if(count == length) {
-
-              res.render('project-portal', {
-              userName: userName,
-              userId: userId,
-              projects: array,
-              bear: bear
+        if (length != 0) {
+          for(var i = 0; i < length; i++){
+            console.log("I'm in the loop!!");
+            bear = bears[Math.floor(Math.random()*bears.length)];
+            db.Project.findOne({_id: data.projects[i] }, function(err, data2) {
+              count++;
+              var project = new db.Project({
+                name: data2.name,
+                description: data2.description,
+                isComplete: data2.completed
               });
-            }
+              array.push(project);
+
+              if(count == length) {
+
+                res.render('project-portal', {
+                userName: userName,
+                userId: userId,
+                projects: array,
+                bear: bear
+                });
+              }
 
 
-          });
+            });
 
-        };
+          };
+
+      } else {
+        res.render('project-portal', {
+        userName: userName,
+        userId: userId,
+        projects: [],
+        bear: bear
+        });
+      }
       });
    });
 
-app.post('/portal-portal/:userId', function(req, res) {
+app.post('/portal/:userId', function(req, res) {
   let cont = req.body.contributors;
   //TODO takin multiple contributors
   const newProject = db.Project({
@@ -115,10 +127,56 @@ app.post('/portal-portal/:userId', function(req, res) {
       console.log('Error saving project to DB.', err);
       res.status(500).send('Internal server error');
     } else {
-      res.status(201).json(data);
+      ///re-render page
+      console.log("userId: " + req.params.userId);
+      db.User.findOne({_id: req.params.userId }, function(err, data2) {
+        //res.json(data);
+        //console.log("NEWPROJECT: " + newProject._id);
+        data2.projects.push(newProject);
+        //let newProjects = data2.projects;
+        console.log("data2.projects: " + data2.projects);
+        db.User.findByIdAndUpdate(req.params.userId, { projects: data2.projects}, function (err, data3) {
+          let bears = ['chinese-panda-bear', 'bear-face', 'google-panda-circular-symbol'];
+          var bear = bears[Math.floor(Math.random()*bears.length)];
+          var project = {};
+          var name = '';
+          db.User.findOne({_id: req.params.userId }, function(err, data4) {
+              var array = [];
+              var userId = req.params.userId;
+              var userName = data4.local.userName;
+              var length = data4.projects.length;
+              let count = 0;
+              for(var i = 0; i < length; i++){
+                bear = bears[Math.floor(Math.random()*bears.length)];
+                db.Project.findOne({_id: data4.projects[i] }, function(err, data5) {
+                  count++;
+                  var project = new db.Project({
+                    name: data5.name,
+                    description: data5.description,
+                    isComplete: data5.completed
+                  });
+                  array.push(project);
+
+                  if(count == length) {
+                    console.log(array);
+                    res.render('project-portal', {
+                    userName: userName,
+                    userId: userId,
+                    projects: array,
+                    bear: bear
+                    });
+                  }
+
+
+                });
+
+              };
+            });
+            });
+          });
     }
   });
-  res.render('portal/:userId');
+
 });
 
 //Routes for projects
