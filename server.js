@@ -69,11 +69,11 @@ app.get('/portal/:userId', function(req, res) {
     var name = '';
     db.User.findOne({_id: req.params.userId }, function(err, data) {
         var array = [];
-        //res.render('../views/project-portal');
-        //console.log('req.params.userId: ' + req.params.userId);
-        //data.projects.forEach(function (projectData)
+        var userId = req.params.userId;
+        var userName = data.local.userName;
+        var length = data.projects.length;
         let count = 0;
-        for(var i = 0; i < data.projects.length; i++){
+        for(var i = 0; i < length; i++){
           bear = bears[Math.floor(Math.random()*bears.length)];
           db.Project.findOne({_id: data.projects[i] }, function(err, data2) {
             count++;
@@ -84,13 +84,13 @@ app.get('/portal/:userId', function(req, res) {
             });
             array.push(project);
             console.log(array);
-            //console.log(data.projects);
-            console.log('data.projects.length: ' + data.projects.length + ' ' + ' count: ' + count);
-            if(count == data.projects.length) {
+            console.log(data.projects);
+            console.log('data.projects.length: ' + length + ' ' + ' count: ' + count);
+            if(count == length) {
               console.log('We Are At The Last One!!!');
               res.render('project-portal', {
-              userName: data.local.userName,
-              userId: req.params.userId,
+              userName: userName,
+              userId: userId,
               projects: array,
               bear: bear
               });
@@ -99,19 +99,19 @@ app.get('/portal/:userId', function(req, res) {
 
           });
           //console.log(data.projects);
-          res.render('project-portal', {
-          userName: data.local.userName,
-          userId: req.params.userId,
-          projects: data.projects,
-          projectName: project.name,
-          projectDescription: project.description,
-          projectIsCompleted: project.isComplete,
-          bear: bear
-          });
-        });
+          // res.render('project-portal', {
+          // userName: data.local.userName,
+          // userId: req.params.userId,
+          // projects: data.projects,
+          // projectName: project.name,
+          // projectDescription: project.description,
+          // projectIsCompleted: project.isComplete,
+          // bear: bear
+          // });
+        };
       });
    });
-});
+
 
 //Routes for projects
 app.get('/newProject', projectRoutes.getProject);
