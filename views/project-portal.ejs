@@ -48,14 +48,16 @@
 
         <%}%>
   <div class="pop-up hide">
-    <form id="pop-form" action="/project-portal/<%= userId %>" method="post">
+    <form id="pop-form" action="/portal/<%= userId %>" method="post">
       <div class="field name">
         <input type="text" id="name" name="name" placeholder="Project Name"/>
       </div>
       <div class="field contributors">
         <input type="text" id="contributors" name="contributors" placeholder="Contributors1, Contributors2, ..."/>
       </div>
-      <textarea name="description" form="pop-up" rows="8" cols="50"></textarea>
+      <div class="field description">
+        <input type="text" id="description" name="description" placeholder="Description"/>
+      </div>
       <div class="button">
         <input class="button" type="submit" value="Create"/>
       </div>
