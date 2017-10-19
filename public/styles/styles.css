@@ -210,23 +210,23 @@ header h1{
  padding-right:2em;
 }
 
-.chatform{
-  background-color: #000000;
+#chatform{
+  background-color: #FF006E;
   padding: 3px;
   bottom: 0;
   width: 100%;
 }
 
-.chatform input{
+#chatform input{
   border: 0;
   padding: 10px;
   width: 90%;
   margin-right: .5%;
 }
 
-.chatform button{
+#chatform button{
   width: 20%;
-  background: rgb(120, 224, 225);
+  background: #d9d9d9;
   border: none;
   padding: 10px;
 }
@@ -348,7 +348,7 @@ header h1{
   box-sizing: border-box;
  }
 
- .addBtn:hover {
+ .addBtn:hover, #chatform button:hover {
     background-color: #bbb;
 }
 
