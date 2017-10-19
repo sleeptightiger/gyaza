@@ -1,4 +1,6 @@
 // app/routes.js
+
+
 module.exports = function(app, passport) {
 
   app.get('/', function(req, res) {
@@ -10,25 +12,13 @@ module.exports = function(app, passport) {
   });
 
   app.get('/portal', function (req, res) {
-    res.render('../views/project-portal');
+    res.redirect('/portal/' + req.user._id);
   });
 
-  // app.get('/profile', isLoggedIn, function(req, res) {
-  //     res.render('/portal', {
-  //         user : req.user
-  //     });
-  // });
-
   app.post('/signup', passport.authenticate('local-signup', {
-      successRedirect : '/portal/',
+      successRedirect : '/portal',
       failureRedirect : '/signup'
   }));
-
-  // route for pulling user after login ***not working****
-  // app.post('/signup', passport.authenticate('local-signup'), function(req, res) {
-  //   //console.log('userName: ' +);
-  //   res.redirect('/portal/' + req.user._id);
-  // });
 
   app.post('/', passport.authenticate('local-login', {
       successRedirect : '/portal',
