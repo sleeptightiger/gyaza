@@ -13,10 +13,7 @@ function getChat(req, res) {
 
 function createChat(req, res) {
   const newChat = db.Chat({
-    created: req.body.created,
-    content: req.body.content,
-    userName: req.body.userName,
-    project: req.body.project
+    msg: req.body.msg
   });
 
   newChat.save(function(err, data) {
