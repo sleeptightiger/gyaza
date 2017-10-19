@@ -49,4 +49,4 @@ function newElement(){
   }
 }
 
-// document.getElementById('ayy').addEventListener('click', newElement);
+document.getElementById('ayy').addEventListener('click', newElement);
