@@ -62,36 +62,63 @@ app.delete('/newUser/:id', userRoutes.deleteUser);
 
 //adding render route for portal
 app.get('/portal/:userId', function(req, res) {
-  let bears = ['chinese-panda-bear', 'bear-face', 'google-panda-circular-symbol'];
-  var bear = bears[Math.floor(Math.random()*bears.length)];
-  var project = {};
-  var name = '';
-  db.User.findOne({_id: req.params.userId }, function(err, data) {
 
-      //res.render('../views/project-portal');
-      console.log(data.projects);
-      data.projects.forEach(function (projectData) {
+    let bears = ['chinese-panda-bear', 'bear-face', 'google-panda-circular-symbol'];
+    var bear = bears[Math.floor(Math.random()*bears.length)];
+    var project = {};
+    var name = '';
+    db.User.findOne({_id: req.params.userId }, function(err, data) {
+        var array = [];
+        var userId = req.params.userId;
+        var userName = data.local.userName;
+        var length = data.projects.length;
+        let count = 0;
+        for(var i = 0; i < length; i++){
+          bear = bears[Math.floor(Math.random()*bears.length)];
+          db.Project.findOne({_id: data.projects[i] }, function(err, data2) {
+            count++;
+            var project = new db.Project({
+              name: data2.name,
+              description: data2.description,
+              isComplete: data2.completed
+            });
+            array.push(project);
 
-        db.Project.findOne({_id: projectData }, function(err, data2) {
+            if(count == length) {
 
-          var project = new db.Project({
-            name: data2.name,
-            description: data2.description,
-            isComplete: data2.completed
+              res.render('project-portal', {
+              userName: userName,
+              userId: userId,
+              projects: array,
+              bear: bear
+              });
+            }
+
+
           });
-          //console.log(data.projects);
-          res.render('project-portal', {
-          userName: data.local.userName,
-          userId: req.params.userId,
-          projects: data.projects,
-          projectName: project.name,
-          projectDescription: project.description,
-          projectIsCompleted: project.isComplete,
-          bear: bear
-          });
-        });
+
+        };
       });
    });
+
+app.post('/portal-portal/:userId', function(req, res) {
+  let cont = req.body.contributors;
+  //TODO takin multiple contributors
+  const newProject = db.Project({
+    name: req.body.name,
+    contributors: req.param.userId,
+    description: req.body.description
+  });
+
+  newProject.save(function(err, data) {
+    if (err) {
+      console.log('Error saving project to DB.', err);
+      res.status(500).send('Internal server error');
+    } else {
+      res.status(201).json(data);
+    }
+  });
+  res.render('portal/:userId');
 });
 
 //Routes for projects
