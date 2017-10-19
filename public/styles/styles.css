@@ -397,8 +397,8 @@ label{
 
 form input[type="text"],form input[type="password"]{
   font-family: "lato", sans-serif;
-  font-size: 25px;
-  padding: 15px 30px;
+  font-size: 15px;
+  padding: 10px 10px;
   font-weight: 300;
   margin: 10px;
  }
@@ -408,9 +408,9 @@ form input[type="submit"]{
   color: #ffffff;
   border: none;
   text-transform: uppercase;
-  padding: 15px 30px;
+  padding: 10px 20px;
   border-radius: 3px;
-  font-size: 25px;
+  font-size: 15px;
   letter-spacing: 1px;
   font-family: "lato", sans-serif;
   font-weight: 300;
@@ -434,7 +434,7 @@ button:focus {
 
 form p{
   font-family: "lato", sans-serif;
-  font-size: 20px;
+  font-size: 15px;
 }
 
 form p a{
