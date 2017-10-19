@@ -74,7 +74,7 @@ app.get('/portal/:userId', function(req, res) {
         //data.projects.forEach(function (projectData)
         let count = 0;
         for(var i = 0; i < data.projects.length; i++){
-
+          bear = bears[Math.floor(Math.random()*bears.length)];
           db.Project.findOne({_id: data.projects[i] }, function(err, data2) {
             count++;
             var project = new db.Project({
