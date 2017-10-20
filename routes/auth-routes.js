@@ -1,6 +1,3 @@
-// app/routes.js
-
-
 module.exports = function(app, passport) {
 
   app.get('/', function(req, res) {
@@ -24,7 +21,6 @@ module.exports = function(app, passport) {
       successRedirect : '/portal',
       failureRedirect : '/'
   }));
-
 
   function isLoggedIn(req, res, next) {
       if (req.isAuthenticated()) {
