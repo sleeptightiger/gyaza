@@ -40,7 +40,7 @@ const userRoutes = require('./routes/users'),
 
 app.get('/project/:projectId', function (req, res) {
   db.Project.findOne({_id: req.params.projectId }, function(err, data) {
-    console.log(data);
+    console.log(req.params.projectId);
     res.render('../views/project-page',
     {
       projectId: req.params.projectId,
@@ -85,17 +85,11 @@ app.get('/portal/:userId', function(req, res) {
         let count = 0;
         if (length != 0) {
           for(var i = 0; i < length; i++){
-            console.log("I'm in the loop!!");
+            
             bear = bears[Math.floor(Math.random()*bears.length)];
             db.Project.findOne({_id: data.projects[i] }, function(err, data2) {
               count++;
-              var project = new db.Project({
-                name: data2.name,
-                description: data2.description,
-                isComplete: data2.completed,
-                projectId: data2._id
-              });
-              array.push(project);
+              array.push(data2);
 
               if(count == length) {
 
