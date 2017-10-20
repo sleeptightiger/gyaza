@@ -68,6 +68,27 @@ app.get('/newUser/:id', userRoutes.findUserById);
 app.put('/newUser/:id', userRoutes.changeUser);
 app.delete('/newUser/:id', userRoutes.deleteUser);
 
+//Routes for projects
+app.get('/newProject', projectRoutes.getProject);
+app.post('/newProject', projectRoutes.createProject);
+app.get('/newProject/:id', projectRoutes.findProjectById);
+app.put('/newProject/:id', projectRoutes.changeProject);
+app.delete('/newProject/:id', projectRoutes.deleteProject);
+
+//Routes for goals
+app.get('/newGoal', projectRoutes.getGoal);
+app.post('/newGoal', projectRoutes.createGoal);
+app.get('/newGoal/:id', projectRoutes.findGoalById);
+app.put('/newGoal/:id', projectRoutes.changeGoal);
+app.delete('/newGoal/:id', projectRoutes.deleteGoal);
+
+//Routes for chats
+app.get('/newChat', chatRoutes.getChat);
+app.post('/newChat', chatRoutes.createChat);
+app.get('/newChat/:id', chatRoutes.findChatById);
+app.put('/newChat/:id', chatRoutes.changeChat);
+app.delete('/newChat/:id', chatRoutes.deleteChat);
+
 //adding render route for portal
 app.get('/portal/:userId', function(req, res) {
 
@@ -177,27 +198,6 @@ app.post('/portal/:userId', function(req, res) {
     };
   });
 });
-
-//Routes for projects
-app.get('/newProject', projectRoutes.getProject);
-app.post('/newProject', projectRoutes.createProject);
-app.get('/newProject/:id', projectRoutes.findProjectById);
-app.put('/newProject/:id', projectRoutes.changeProject);
-app.delete('/newProject/:id', projectRoutes.deleteProject);
-
-//Routes for goals
-app.get('/newGoal', projectRoutes.getGoal);
-app.post('/newGoal', projectRoutes.createGoal);
-app.get('/newGoal/:id', projectRoutes.findGoalById);
-app.put('/newGoal/:id', projectRoutes.changeGoal);
-app.delete('/newGoal/:id', projectRoutes.deleteGoal);
-
-//Routes for chats
-app.get('/newChat', chatRoutes.getChat);
-app.post('/newChat', chatRoutes.createChat);
-app.get('/newChat/:id', chatRoutes.findChatById);
-app.put('/newChat/:id', chatRoutes.changeChat);
-app.delete('/newChat/:id', chatRoutes.deleteChat);
 
 http.listen(3000, function(){
   console.log('listening on *:3000');
