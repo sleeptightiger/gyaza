@@ -72,3 +72,17 @@ GET          | /newChat/:id               | chat Read one         | Lists select
 POST         | /newChat                   | chat Create new       | Creates new chat
 PUT          | /newChat/:id               | chat update           | Updates existing chat
 DELETE       | /newChat/:id               | chat Delete           | Deletes selected chat
+
+# ADDITIONAL FEATURES
+
+1. Make chat and goals persistent
+2. Make it so that the goals part is more specific to answering planning questions like: 
+    * What problem are you trying to solve?
+    * How will our app solve this problem?
+    * What is our target audience?
+    * What is each member in charge of?
+    * What are your daily MUST-HAVES, MAYBE-HAVES, and WISH-LIST?
+3. Make it so the projects are organized in completed, working, or pending tabs
+4. Make it so that goals can be up-voted or down-voted before the team can move on.
+5. Make the paths more seamless.
+6. Make projects, chats, users, and goals searchable.
