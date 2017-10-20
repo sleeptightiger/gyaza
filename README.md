@@ -5,17 +5,48 @@ Welcome to Gyaza! Gyaza in Japanese means "to gather" and that is exactly what t
 
 ## Here is the URL: https://git.heroku.com/stormy-escarpment-83440.git
 
+## KEY FEATURES
+
 Once you log in, you can create a project with contributors who can also access the same project page. When you click on a project, it will take you to your project page where you can have a chatroom discussion with your teammates. This project page also has a Goals list where you or a team member can add and/or delete goals for your group project. 
+
+![alt text](screenshots/Log-In.png "Log-in page")
 
 At the top of each project portal page, you will see tabs that can take you to your current projects, completed projects, or pending projects. Your pending projects are projects that a user has invited you to that are awaiting your approval. Once you accept the invitation to a project, it will be sent to your current projects page. After your team has completed a project, you can mark it as completed and it will be moved to the completed tab for future reference if needed.
 
+![alt text](screenshots/Project-Portal2.png "Project Portal page")
+
+![alt text](screenshots/Create-new-project.png "Create New Project page")
+
 In the Goals table, you will be able to up-vote or down-vote a goal and each member of your team will be able to mark it as completed before it can be crossed off your list. That way, every member of your team will have agree and be on the same page before you can move on with your project. 
 
-## localhost:3000/ --> will get you to the main log-in page
-## localhost:3000/portal --> will get you to your project portal
-## localhost:3000/portal/:userId ---> will get your to your user portal
-## localhost:3000/project --> will get you to your projects page
-## localhost:3000/project/:projectId --> will get you to your project page
+![alt text](screenshots/project-page.png "Project page")
+
+# DEPENDENCIES
+
+```
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "bson": "^1.0.4",
+    "bson-ext": "^1.0.5",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^4.0.0",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "express-session": "^1.15.6",
+    "kerberos": "0.0.23",
+    "mongodb": "^2.2.33",
+    "mongodb-core": "^2.1.17",
+    "mongoose": "^4.12.3",
+    "morgan": "^1.9.0",
+    "node-gyp": "^3.6.2",
+    "passport": "^0.4.0",
+    "passport-github2": "^0.1.11",
+    "passport-local": "^1.0.0",
+    "socket.io": "^2.0.3"
+  }
+```
 
 # PUBLIC ENDPOINTS
 
