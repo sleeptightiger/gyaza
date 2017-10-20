@@ -58,7 +58,6 @@ app.get('/', function(req, res){
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
     io.emit('chat message', msg);
-
   });
 });
 
@@ -145,42 +144,38 @@ app.post('/portal/:userId', function(req, res) {
           var project = {};
           var name = '';
           db.User.findOne({_id: req.params.userId }, function(err, data4) {
-              var array = [];
-              var userId = req.params.userId;
-              var userName = data4.local.userName;
-              var length = data4.projects.length;
-              let count = 0;
-              for(var i = 0; i < length; i++){
-                bear = bears[Math.floor(Math.random()*bears.length)];
-                db.Project.findOne({_id: data4.projects[i] }, function(err, data5) {
-                  count++;
-                  var project = new db.Project({
-                    name: data5.name,
-                    description: data5.description,
-                    isComplete: data5.completed
-                  });
-                  array.push(project);
-
-                  if(count == length) {
-                    console.log(array);
-                    res.render('project-portal', {
-                    userName: userName,
-                    userId: userId,
-                    projects: array,
-                    bear: bear
-                    });
-                  }
-
-
+            var array = [];
+            var userId = req.params.userId;
+            var userName = data4.local.userName;
+            var length = data4.projects.length;
+            let count = 0;
+            for(var i = 0; i < length; i++){
+              bear = bears[Math.floor(Math.random()*bears.length)];
+              db.Project.findOne({_id: data4.projects[i] }, function(err, data5) {
+                count++;
+                var project = new db.Project({
+                  name: data5.name,
+                  description: data5.description,
+                  isComplete: data5.completed
                 });
+                array.push(project);
 
-              };
-            });
-            });
+                if(count == length) {
+                  console.log(array);
+                  res.render('project-portal', {
+                  userName: userName,
+                  userId: userId,
+                  projects: array,
+                  bear: bear
+                  });
+                };
+              });
+            };
           });
-    }
+        });
+      });
+    };
   });
-
 });
 
 //Routes for projects
