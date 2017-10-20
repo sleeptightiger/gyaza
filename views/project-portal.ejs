@@ -38,7 +38,7 @@
  <div class="content project-portal-container">
         <button type="button" name="button">Create Project</button>
         <%for(var i = 0; i < projects.length; i++) {%>
-          <section class="section"><a href="project">
+          <section class="section"><a href="/project/<%= projects[i]._id %>">
             <div class="mediabox">
               <img src="../images/<%= bear %>.png" alt="project-image"/>
               <h3><%= projects[i].name %></h3>

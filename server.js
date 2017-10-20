@@ -39,8 +39,14 @@ const userRoutes = require('./routes/users'),
       projectRoutes = require('./routes/projects');
 
 app.get('/project/:projectId', function (req, res) {
-  db.Project.findOne({_id: req.params.userId }, function(err, data) {
-    res.render('../views/project-page');
+  db.Project.findOne({_id: req.params.projectId }, function(err, data) {
+    console.log(data);
+    res.render('../views/project-page',
+    {
+      projectId: req.params.projectId,
+      //name: data.name,
+      //description: data.description
+    });
   });
 
 });
@@ -86,7 +92,8 @@ app.get('/portal/:userId', function(req, res) {
               var project = new db.Project({
                 name: data2.name,
                 description: data2.description,
-                isComplete: data2.completed
+                isComplete: data2.completed,
+                projectId: data2._id
               });
               array.push(project);
 
