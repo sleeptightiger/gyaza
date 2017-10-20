@@ -39,8 +39,14 @@ const userRoutes = require('./routes/users'),
       projectRoutes = require('./routes/projects');
 
 app.get('/project/:projectId', function (req, res) {
-  db.Project.findOne({_id: req.params.userId }, function(err, data) {
-    res.render('../views/project-page');
+  db.Project.findOne({_id: req.params.projectId }, function(err, data) {
+    console.log(data);
+    res.render('../views/project-page',
+    {
+      projectId: req.params.projectId,
+      name: data.name,
+      description: data.description
+    });
   });
 
 });
@@ -78,16 +84,11 @@ app.get('/portal/:userId', function(req, res) {
         let count = 0;
         if (length != 0) {
           for(var i = 0; i < length; i++){
-            console.log("I'm in the loop!!");
+
             bear = bears[Math.floor(Math.random()*bears.length)];
             db.Project.findOne({_id: data.projects[i] }, function(err, data2) {
               count++;
-              var project = new db.Project({
-                name: data2.name,
-                description: data2.description,
-                isComplete: data2.completed
-              });
-              array.push(project);
+              array.push(data2);
 
               if(count == length) {
 
