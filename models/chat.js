@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 
 const ChatSchema = new mongoose.Schema({
-  msg: String
+  msg: String,
+  date: Date
 });
 
 const Chat = mongoose.model('Chat', ChatSchema);
